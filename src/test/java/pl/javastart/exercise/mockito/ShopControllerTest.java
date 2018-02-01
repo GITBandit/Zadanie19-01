@@ -25,7 +25,6 @@ public class ShopControllerTest {
 
     private Shop shop;
 
-
     private ShopController shopController;
     private Map<Item, Integer> stock;
 
@@ -37,8 +36,7 @@ public class ShopControllerTest {
         stock = new HashMap<>();
         stock.put(new Item("Piwo", 18, 4, true), 4);
 
-        shop = new Shop(1000,stock);
-
+        shop = Mockito.spy(new Shop(1000,stock));
 /*        shop.newStock(stock);
         shop.setMoney(1000);*/
 
@@ -89,12 +87,12 @@ public class ShopControllerTest {
         Human human = new Human("Marek",35,"Rolnik",1000);
         stock = new HashMap<>();
         stock.put(new Item("Piwo", 18, 4, true), 4);
-        Shop shopSpy = Mockito.spy(new Shop(1000,stock));
+       // Shop shopSpy = Mockito.spy(new Shop(1000,stock));
         //when
         shopController.sellItem(human,"Piwo");
 
         //then
-        Mockito.verify(shopSpy,atLeastOnce()).playCashSound();
+        Mockito.verify(shop,atLeastOnce()).playCashSound();
     }
 
     @Test
